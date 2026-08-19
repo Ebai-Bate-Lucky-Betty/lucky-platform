@@ -1,27 +1,22 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Projects from "@/components/sections/Projects";
-import { portfolioData } from "@/lib/portfolio";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/home/Hero";
+import SelectedWork from "@/components/home/SelectedWork";
+import Transition from "@/components/home/Transition";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-black">
+    <>
       <Navbar />
 
-      <div className="max-w-6xl mx-auto">
-        <section id="hero" className="px-10 py-20">
-          <Hero data={portfolioData} />
-        </section>
+      <main>
+        <Hero />
+        <SelectedWork />
+        <Transition />
+      </main>
 
-        <div className="py-10">
-          <About />
-        </div>
-
-        <div className="py-10">
-          <Projects />
-        </div>
-      </div>
-    </main>
+      <Footer />
+    </>
   );
 }
+
