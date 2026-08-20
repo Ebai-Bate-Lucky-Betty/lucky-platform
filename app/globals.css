@@ -5064,432 +5064,536 @@ a {
 /* =========================================================
    MOBILE
    ========================================================= */
- 
+
 @media (max-width: 680px) {
+
+  /* -------------------------------------------------------
+     GLOBAL MOBILE OVERFLOW FIX
+     ------------------------------------------------------- */
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+
+  /* -------------------------------------------------------
+     NAVBAR
+     ------------------------------------------------------- */
+
   .navbar-inner {
     width: min(100% - 32px, 1400px);
-  }
- 
-  .navbar-inner {
+
     flex-wrap: wrap;
- 
+
     row-gap: 12px;
- 
+
     padding: 14px 0;
   }
- 
+
   .navbar-links {
     flex-wrap: wrap;
- 
+
     gap: 14px 20px;
   }
- 
+
   .navbar-link {
     font-size: 0.78rem;
   }
- 
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
+
   .hero-content {
     width: min(100% - 32px, 1400px);
   }
- 
+
   .hero-title {
     font-size: clamp(3rem, 15vw, 5rem);
- 
+
     letter-spacing: -0.065em;
   }
- 
+
   .hero-description {
     font-size: 0.98rem;
   }
- 
+
   .hero-actions {
     flex-wrap: wrap;
   }
- 
+
   .hero-visual {
     height: 48vh;
- 
+
     min-height: 350px;
   }
- 
+
   .scroll-indicator {
     display: none;
   }
- 
+
+
+  /* -------------------------------------------------------
+     SELECTED WORK
+     ------------------------------------------------------- */
+
   .selected-work {
     padding: 100px 0 110px;
   }
- 
+
   .selected-work-inner {
     width: min(100% - 32px, 1400px);
   }
- 
+
   .section-title {
     font-size: clamp(2.8rem, 14vw, 4rem);
   }
- 
+
   .project-information {
     grid-template-columns: 1fr;
- 
+
     gap: 20px;
   }
- 
+
   .project-technologies {
     grid-column: auto;
   }
- 
+
   .project-arrow {
     opacity: 1;
- 
+
     transform: none;
   }
- 
+
+
+  /* -------------------------------------------------------
+     WHO IS LUCKY
+     ------------------------------------------------------- */
+
   .who-is-lucky {
     padding: 100px 0 110px;
   }
- 
+
   .who-is-lucky-inner {
     width: min(100% - 32px, 1400px);
- 
+
     min-height: 430px;
   }
- 
+
   .who-is-lucky-eyebrow {
     margin-bottom: 22px;
- 
+
     font-size: 0.72rem;
   }
- 
+
   .who-is-lucky-title {
     font-size: clamp(3.3rem, 15vw, 5rem);
- 
+
     line-height: 0.9;
   }
- 
+
   .who-is-lucky-bottom {
     align-items: flex-start;
- 
+
     flex-direction: column;
- 
+
     gap: 30px;
- 
+
     margin-top: 60px;
- 
+
     padding-top: 22px;
   }
- 
+
   .who-is-lucky-description {
     max-width: 300px;
- 
+
     font-size: 0.92rem;
   }
- 
+
   .who-is-lucky-cta {
     font-size: 0.85rem;
   }
- 
+
   .who-is-lucky-background {
     right: -0.15em;
+
     bottom: -0.08em;
- 
+
     font-size: 8rem;
   }
- 
-    .site-footer {
+
+
+  /* -------------------------------------------------------
+     FOOTER
+     ------------------------------------------------------- */
+
+  .site-footer {
     padding: 60px 0 32px;
   }
- 
+
   .site-footer-inner {
     width: min(100% - 32px, 1400px);
- 
+
     align-items: flex-start;
- 
+
     flex-direction: column;
- 
+
     gap: 55px;
   }
- 
+
   .footer-name {
     font-size: clamp(3rem, 15vw, 5rem);
   }
- 
+
   .footer-contact {
     width: 100%;
- 
+
     align-items: flex-start;
- 
+
     gap: 18px;
   }
- 
+
   .footer-link {
     width: 100%;
- 
+
     justify-content: space-between;
- 
+
     gap: 15px;
   }
- 
+
   .footer-value {
     text-align: right;
- 
+
     font-size: 0.82rem;
   }
- 
-    .about-container {
+
+
+  /* =======================================================
+     ABOUT PAGE
+     ======================================================= */
+
+  .about-container {
     width: min(100% - 32px, 1400px);
   }
- 
+
   .about-intro {
     padding: 90px 0 80px;
   }
- 
+
   .about-intro-title {
     font-size: clamp(3.4rem, 15vw, 5rem);
   }
- 
+
   .about-intro-description {
     margin-top: 30px;
- 
+
     font-size: 1rem;
   }
- 
+
+
+  /* -------------------------------------------------------
+     ABOUT SPLIT
+     ------------------------------------------------------- */
+
   .about-split {
     padding: 80px 0;
   }
- 
+
+  /*
+   * Stack the image and text vertically on mobile.
+   *
+   * Image:
+   *     1st
+   *
+   * Text:
+   *     2nd
+   */
+  .about-split-grid {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .about-split-grid .about-image-wrapper {
+    order: 1;
+  }
+
+  .about-split-grid .about-content {
+    order: 2;
+  }
+
+  /*
+   * Also make sure the reverse layout follows
+   * the same mobile order.
+   */
+  .about-split-reverse {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .about-split-reverse .about-image-wrapper {
+    order: 1;
+  }
+
+  .about-split-reverse .about-content {
+    order: 2;
+  }
+
+  /*
+   * FULL-BLEED MOBILE IMAGE
+   *
+   * .about-container has 16px horizontal spacing.
+   * Expanding the image by 32px and pulling it back
+   * by 16px on each side makes it touch both edges
+   * of the viewport.
+   *
+   * Unlike the previous 100vw / -50vw method,
+   * this avoids creating unnecessary horizontal
+   * overflow.
+   */
+  .about-image-wrapper {
+    width: calc(100% + 32px);
+
+    margin-left: -16px;
+    margin-right: -16px;
+
+    aspect-ratio: 0.95 / 1;
+
+    border-radius: 0;
+  }
+
   .about-section-title {
     font-size: clamp(2.7rem, 13vw, 4rem);
   }
- 
+
   .about-paragraphs {
     margin-top: 28px;
   }
- 
+
   .about-paragraphs p {
     font-size: 0.94rem;
   }
 
-    /* Image appears before the text on mobile — same
-     stacking order as the case-study architecture
-     section (image/text order, not columns). Applies
-     to both .about-split-grid and .about-split-reverse. */
-  .about-split-grid .about-content {
-    order: 2;
-  }
- 
-  .about-split-grid .about-image-wrapper {
-    order: 1;
-  }
- 
-  /* Full-bleed image — breaks out of .about-container
-     to touch the left/right edges of the viewport. */
-  .about-image-wrapper {
-    position: relative;
- 
-    left: 50%;
-    right: 50%;
- 
-    width: 100vw;
- 
-    margin-left: -50vw;
-    margin-right: -50vw;
- 
-    aspect-ratio: 0.95 / 1;
- 
-    border-radius: 0;
-  }
- 
+
+  /* -------------------------------------------------------
+     ABOUT PHILOSOPHY
+     ------------------------------------------------------- */
+
   .about-philosophy {
     padding: 90px 0;
   }
- 
-  .vision-title {
-    font-size: clamp(3.2rem, 14vw, 5rem);
-  }
- 
+
+
+  /* -------------------------------------------------------
+     ABOUT VISION
+     ------------------------------------------------------- */
+
   .about-vision {
     padding: 110px 0 130px;
   }
- 
+
+  .vision-title {
+    font-size: clamp(3.2rem, 14vw, 5rem);
+  }
+
   .vision-description {
     font-size: 1rem;
   }
- 
+
   .vision-statement {
     margin-top: 60px;
- 
+
     padding: 40px 0;
   }
- 
-    .journey-container {
+
+
+  /* =======================================================
+     JOURNEY PAGE
+     ======================================================= */
+
+  .journey-container {
     width: min(100% - 32px, 1200px);
   }
- 
+
   .journey-intro {
     padding: 90px 0 75px;
   }
- 
+
   .journey-title {
     font-size: clamp(3.5rem, 15vw, 5.5rem);
   }
- 
+
   .journey-intro-description {
     margin-top: 30px;
- 
+
     font-size: 0.98rem;
   }
- 
+
   .journey-timeline {
     padding: 30px 0 90px;
   }
- 
+
   .timeline {
     padding-left: 32px;
   }
- 
+
   .timeline::before {
     left: 7px;
- 
+
     transform: none;
   }
- 
+
   .timeline-item {
     display: block;
- 
+
     min-height: auto;
- 
+
     padding-bottom: 65px;
   }
- 
+
   .timeline-item:last-child {
     padding-bottom: 0;
   }
- 
+
   .timeline-content,
   .timeline-item-left .timeline-content,
   .timeline-item-right .timeline-content {
     width: 100%;
- 
+
     padding: 0;
- 
+
     text-align: left;
- 
+
     transform: none;
   }
- 
+
   .timeline-item:hover .timeline-content {
     transform: translateX(4px);
   }
- 
+
   .timeline-marker {
     top: 3px;
- 
+
     left: 0;
- 
+
     width: 15px;
     height: 15px;
- 
+
     transform: translateX(-50%);
   }
- 
+
   .timeline-title {
     font-size: 2rem;
   }
- 
+
   .timeline-description {
     font-size: 0.88rem;
   }
- 
+
   .journey-closing {
     padding: 110px 0 130px;
   }
- 
+
   .journey-closing-title {
     font-size: clamp(3.2rem, 14vw, 5rem);
   }
- 
-    .contact-container {
+
+
+  /* =======================================================
+     CONTACT PAGE
+     ======================================================= */
+
+  .contact-container {
     width: min(100% - 32px, 1200px);
   }
- 
+
   .contact-intro {
     padding: 90px 0 75px;
   }
- 
+
   .contact-title {
     font-size: clamp(3.5rem, 15vw, 5.5rem);
   }
- 
+
   .contact-intro-description {
     margin-top: 30px;
- 
+
     font-size: 0.98rem;
   }
- 
+
   .contact-links-section {
     padding: 45px 0 90px;
   }
- 
+
   .contact-link {
     grid-template-columns: 1fr auto;
- 
+
     gap: 8px;
- 
+
     min-height: 95px;
   }
- 
+
   .contact-link-value {
     grid-column: 1;
- 
+
     grid-row: 2;
- 
+
     font-size: 0.9rem;
   }
- 
+
   .contact-link-arrow {
     grid-column: 2;
- 
+
     grid-row: 1 / span 2;
   }
- 
+
   .contact-form-section {
     padding: 90px 0;
   }
- 
+
   .contact-form-intro h2 {
     font-size: clamp(2.8rem, 13vw, 4rem);
   }
- 
+
   .contact-closing {
     padding: 110px 0 130px;
   }
- 
+
   .contact-closing-title {
     font-size: clamp(3.2rem, 14vw, 5rem);
   }
- 
-    .projects-container {
+
+
+  /* =======================================================
+     PROJECTS PAGE
+     ======================================================= */
+
+  .projects-container {
     width: min(100% - 32px, 1280px);
   }
- 
+
   .projects-hero {
     padding: 80px 0 55px;
   }
- 
+
   .projects-search-section {
     padding-bottom: 65px;
   }
- 
+
   .project-category-list {
     grid-template-columns: 1fr;
- 
+
     gap: 40px;
   }
- 
+
   .project-card-title {
     font-size: 1.6rem;
   }
- 
+
+} 
  
  
   /* =====================================================
@@ -5602,7 +5706,7 @@ a {
     font-size: 0.9rem;
   }
  
-}
+
  
 /* =========================================================
    REDUCED MOTION
