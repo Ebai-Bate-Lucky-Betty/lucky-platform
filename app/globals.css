@@ -5268,9 +5268,35 @@ a {
   .about-paragraphs p {
     font-size: 0.94rem;
   }
+
+    /* Image appears before the text on mobile — same
+     stacking order as the case-study architecture
+     section (image/text order, not columns). Applies
+     to both .about-split-grid and .about-split-reverse. */
+  .about-split-grid .about-content {
+    order: 2;
+  }
  
+  .about-split-grid .about-image-wrapper {
+    order: 1;
+  }
+ 
+  /* Full-bleed image — breaks out of .about-container
+     to touch the left/right edges of the viewport. */
   .about-image-wrapper {
+    position: relative;
+ 
+    left: 50%;
+    right: 50%;
+ 
+    width: 100vw;
+ 
+    margin-left: -50vw;
+    margin-right: -50vw;
+ 
     aspect-ratio: 0.95 / 1;
+ 
+    border-radius: 0;
   }
  
   .about-philosophy {
