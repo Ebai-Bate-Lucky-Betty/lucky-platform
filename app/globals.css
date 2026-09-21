@@ -694,7 +694,7 @@ a {
 }
 
 .project-card:hover .project-image {
-  transform: scale(0.2);
+  transform: scale(1.035);
 }
 
 
@@ -2006,7 +2006,7 @@ a {
 
 /* =========================================================
    CONTACT LINKS
-========================================================= */
+   ========================================================= */
 
 .contact-links-section {
   padding: 80px 0 150px;
@@ -2388,7 +2388,7 @@ a {
 
 /* =========================================================
    RESUME SECTIONS
-========================================================= */
+   ========================================================= */
 
 .resume-section {
   padding: 140px 0;
@@ -2440,7 +2440,7 @@ a {
 
 /* =========================================================
    EDUCATION
-========================================================= */
+   ========================================================= */
 
 .resume-education {
   background: var(--background);
@@ -2521,7 +2521,7 @@ a {
 
 /* =========================================================
    EXPERIENCE
-========================================================= */
+   ========================================================= */
 
 .resume-experience {
   background: #eeece4;
@@ -2578,7 +2578,7 @@ a {
 
 /* =========================================================
    EXPERIENCE HIGHLIGHTS
-========================================================= */
+   ========================================================= */
 
 .resume-highlights {
   display: flex;
@@ -2613,7 +2613,7 @@ a {
 
 /* =========================================================
    SKILLS
-========================================================= */
+   ========================================================= */
 
 
 .resume-skills {
@@ -2719,32 +2719,37 @@ a {
 
   overflow-x: hidden;
 
-  padding-right: 6px;
+  padding-right: 10px;
 
+  /* Firefox, and Chrome/Edge 121+ (thumb, then track) */
   scrollbar-width: thin;
 
-  scrollbar-color: rgba(25, 61, 43, 0.35) transparent;
+  scrollbar-color: var(--grass-green) rgba(25, 61, 43, 0.14);
 }
 
 
-/* Chrome, Edge, Safari */
+/* Safari, including iPhone */
 
 .resume-skill-list::-webkit-scrollbar {
-  width: 7px;
+  width: 8px;
 }
 
 .resume-skill-list::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(25, 61, 43, 0.14);
+
+  border-radius: 999px;
 }
 
 .resume-skill-list::-webkit-scrollbar-thumb {
-  background: rgba(25, 61, 43, 0.35);
+  background: var(--grass-green);
+
   border-radius: 999px;
+
   min-height: 45px;
 }
 
 .resume-skill-list::-webkit-scrollbar-thumb:hover {
-  background: var(--grass-green);
+  background: var(--grass-green-dark);
 }
 
 
@@ -2781,7 +2786,7 @@ a {
 
 /* =========================================================
    LANGUAGES
-========================================================= */
+   ========================================================= */
 
 .resume-languages {
   padding-top: 0;
@@ -2845,7 +2850,7 @@ a {
 
 /* =========================================================
    RESUME DOWNLOAD
-========================================================= */
+   ========================================================= */
 
 .resume-download {
   padding: 170px 0 190px;
@@ -3698,6 +3703,48 @@ a {
   gap: 60px;
 }
 
+/* =========================================================
+   ARCHITECTURE — 3-GRID (optional, controlled by `include`)
+========================================================= */
+
+.architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.architecture-grid-item {
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(25, 61, 43, 0.035);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.architecture-grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(16, 41, 29, 0.07);
+}
+
+.architecture-grid-item h4 {
+  margin: 0 0 14px;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.architecture-grid-item p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.architecture-grid-item p:last-child {
+  margin-bottom: 0;
+}
+
 .architecture-item-reversed {
   grid-template-columns:
     minmax(0, 1.15fr)
@@ -4091,6 +4138,20 @@ a {
   color: rgba(247, 245, 239, 0.75);
 }
 
+/*
+ * Keeps every paragraph inside the wide right-hand column.
+ * Needs the wrapper <div className="learning-content"> in
+ * ProjectCaseStudy.tsx around the renderRichText call.
+ */
+
+.learning-content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
+}
+
 .learning-text {
   max-width: 720px;
 
@@ -4239,6 +4300,18 @@ a {
   height: auto;
 }
 
+/* Used when the demo is a YouTube embed instead of a file */
+
+.case-study-video iframe {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  border: 0;
+}
+
 
 
 /* =========================================================
@@ -4316,10 +4389,18 @@ a {
   background: rgba(247, 245, 239, 0.08);
 }
 
+/* Green buttons — must come AFTER .explore-link:hover so they win */
+
 .explore-link-primary {
   background: var(--grass-green);
 
   border-color: var(--grass-green);
+}
+
+.explore-link-primary:hover {
+  background: #245239;
+
+  border-color: #245239;
 }
 
 
@@ -4352,6 +4433,12 @@ a {
   font-weight: 400;
 
   color: var(--muted);
+}
+
+/* Space between paragraphs when reflection is an array */
+
+.reflection-text + .reflection-text {
+  margin-top: 24px;
 }
 
 
@@ -4394,6 +4481,11 @@ a {
     grid-template-columns: 1fr;
 
     gap: 35px;
+  }
+
+  .architecture-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
   }
 
   .architecture-item-reversed .architecture-text,
@@ -4557,6 +4649,16 @@ a {
     gap: 55px;
   }
 
+  .architecture-grid {
+  grid-template-columns: 1fr;
+  margin-top: 40px;
+  gap: 16px;
+  }
+
+  .architecture-grid-item {
+  padding: 24px;
+  }
+
   .architecture-text h3 {
     font-size: 1.8rem;
   }
@@ -4570,7 +4672,7 @@ a {
 
     border-radius: 18px;
   }
-
+  
 
   /* =======================================================
      TECHNOLOGIES
@@ -5593,121 +5695,122 @@ a {
     font-size: 1.6rem;
   }
 
-} 
- 
- 
-  /* =====================================================
-     RESUME — MOBILE
-  ===================================================== */
- 
+
+  /* =======================================================
+     RESUME
+     ======================================================= */
+
   .resume-container {
     width: min(100% - 32px, 1200px);
   }
- 
+
   .resume-hero {
     padding: 90px 0 80px;
   }
- 
+
   .resume-hero-title {
     font-size: clamp(4rem, 20vw, 6rem);
- 
+
     letter-spacing: -0.09em;
   }
- 
+
   .resume-hero-role {
     margin-top: 25px;
- 
+
     font-size: 1.5rem;
   }
- 
+
   .resume-hero-positioning {
     margin-top: 25px;
- 
+
     font-size: 0.95rem;
   }
- 
+
   .resume-hero-actions {
     margin-top: 30px;
   }
- 
+
   .resume-section {
     padding: 90px 0;
   }
- 
+
   .resume-section-title {
     font-size: clamp(3rem, 15vw, 5rem);
   }
- 
+
   .resume-education-item,
   .resume-experience-item {
     display: block;
- 
+
     padding: 32px 0;
   }
- 
+
   .resume-period {
     margin-bottom: 20px;
   }
- 
+
   .resume-education-main h3,
   .resume-experience-main h3 {
     font-size: 1.7rem;
   }
- 
+
   .resume-description {
     font-size: 0.88rem;
   }
- 
+
+  /* Phones: one tag per line. Delete this rule if you'd rather
+     have tags wrap in rows on phones too. */
   .resume-highlights {
     flex-direction: column;
- 
+
     align-items: flex-start;
   }
- 
+
   .resume-highlights li {
     max-width: 100%;
   }
- 
+
   .resume-skill-group {
     padding: 25px;
- 
+
     border-radius: 22px;
   }
- 
+
   .resume-language-item {
     grid-template-columns: 1fr auto;
- 
+
     gap: 8px;
- 
+
     min-height: 105px;
   }
- 
+
   .resume-language-level {
     grid-column: 1;
- 
+
     font-size: 0.82rem;
   }
- 
+
   .resume-language-arrow {
     grid-column: 2;
- 
+
     grid-row: 1 / span 2;
   }
- 
+
   .resume-download {
     padding: 110px 0 130px;
   }
- 
+
   .resume-download-title {
     font-size: clamp(3.2rem, 15vw, 5rem);
   }
- 
+
   .resume-download-description {
     font-size: 0.9rem;
   }
- 
 
- 
+}
+
+
 /* =========================================================
    REDUCED MOTION
    ========================================================= */
@@ -5751,4 +5854,3 @@ a {
     clip-path: none;
   }
 }
-

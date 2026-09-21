@@ -1,14 +1,89 @@
 import Image from "next/image";
-import type { Project } from "@/data/projects";
+import type {
+  Project,
+  ProjectArchitectureSection,
+  RichText,
+} from "@/data/projects";
 import Footer from "../layout/Footer";
 
 type ProjectCaseStudyProps = {
   project: Project;
 };
 
+/*
+ * =========================================================
+ * RICH TEXT RENDERER
+ * =========================================================
+ *
+ * Accepts a RichText value (a single string, or an array of
+ * strings) and renders one tag per paragraph. Existing single
+ * strings render exactly as before — one tag, no change in
+ * output.
+ */
+
+function renderRichText(
+  content: RichText,
+  className?: string,
+  as: "p" | "h2" = "p"
+) {
+  const paragraphs = Array.isArray(content) ? content : [content];
+
+  return paragraphs.map((paragraph, index) =>
+    as === "h2" ? (
+      <h2 key={index} className={className}>
+        {paragraph}
+      </h2>
+    ) : (
+      <p key={index} className={className}>
+        {paragraph}
+      </p>
+    )
+  );
+}
+
 export default function ProjectCaseStudy({
   project,
 }: ProjectCaseStudyProps) {
+  /*
+   * =========================================================
+   * ARCHITECTURE GRID CHILDREN
+   * =========================================================
+   *
+   * `addGridUnder` contains the titles of architecture
+   * sections that should be displayed as 3-grid cards under
+   * their parent section.
+   *
+   * Example:
+   *
+   * {
+   *   title: "System Architecture",
+   *   addGridUnder: [
+   *     "Communication",
+   *     "API Design",
+   *     "Database Architecture",
+   *   ]
+   * }
+   *
+   * The sections themselves remain normal architecture
+   * sections in the data. They are simply removed from the
+   * alternating list when they are being used as grid cards.
+   */
+
+  const gridChildTitles = new Set(
+    project.architecture.flatMap(
+      (section) => section.addGridUnder ?? []
+    )
+  );
+
+  /*
+   * Only architecture sections that are NOT being used as
+   * children of another section remain in the main
+   * alternating architecture list.
+   */
+  const architectureSections = project.architecture.filter(
+    (section) => !gridChildTitles.has(section.title)
+  );
+
   return (
     <main className="case-study">
 
@@ -19,24 +94,22 @@ export default function ProjectCaseStudy({
       <section className="case-study-hero">
 
         {project.image && (
-              <div className="case-study-hero-image">
+          <div className="case-study-hero-image">
 
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  priority
-                  sizes="100vw"
-                />
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              priority
+              sizes="100vw"
+            />
 
-              </div>
-           )}
+          </div>
+        )}
 
         <div className="case-study-container">
 
           <div className="case-study-hero-heading">
-
-            
 
             <h1 className="case-study-title">
               {project.title}
@@ -64,9 +137,10 @@ export default function ProjectCaseStudy({
 
         <div className="case-study-narrow">
 
-          <p className="case-study-overview-text">
-            {project.overview}
-          </p>
+          {renderRichText(
+            project.overview,
+            "case-study-overview-text"
+          )}
 
         </div>
 
@@ -87,9 +161,10 @@ export default function ProjectCaseStudy({
               THE PROBLEM
             </p>
 
-            <p className="editorial-text">
-              {project.problem}
-            </p>
+            {renderRichText(
+              project.problem,
+              "editorial-text"
+            )}
 
           </div>
 
@@ -112,9 +187,10 @@ export default function ProjectCaseStudy({
               WHY I CHOSE IT
             </p>
 
-            <p className="editorial-text">
-              {project.whyIChoseIt}
-            </p>
+            {renderRichText(
+              project.whyIChoseIt,
+              "editorial-text"
+            )}
 
           </div>
 
@@ -137,9 +213,10 @@ export default function ProjectCaseStudy({
               RESEARCH
             </p>
 
-            <p className="editorial-text">
-              {project.research}
-            </p>
+            {renderRichText(
+              project.research,
+              "editorial-text"
+            )}
 
           </div>
 
@@ -162,9 +239,10 @@ export default function ProjectCaseStudy({
               MY DESIGN PROCESS
             </p>
 
-            <p className="editorial-text">
-              {project.designProcess}
-            </p>
+            {renderRichText(
+              project.designProcess,
+              "editorial-text"
+            )}
 
           </div>
 
@@ -200,53 +278,143 @@ export default function ProjectCaseStudy({
           </div>
 
 
+          {/* =================================================
+              ARCHITECTURE LIST
+
+              The original alternating architecture behavior
+              is preserved:
+
+              index 0  → normal
+              index 1  → reversed
+              index 2  → normal
+              index 3  → reversed
+
+              This means the existing image-left/text-right
+              and text-left/image-right swapping is unchanged.
+              ================================================= */}
+
           <div className="architecture-list">
 
-            {project.architecture.map(
+            {architectureSections.map(
               (section, index) => {
 
                 const reversed = index % 2 !== 0;
 
+                /*
+                 * Find the architecture sections requested by
+                 * this section's `addGridUnder` property.
+                 *
+                 * The order here is exactly the order defined
+                 * inside `addGridUnder`.
+                 */
+                const gridChildren =
+                  section.addGridUnder
+                    ?.map((title) =>
+                      project.architecture.find(
+                        (item) => item.title === title
+                      )
+                    )
+                    .filter(
+                      (
+                        item
+                      ): item is ProjectArchitectureSection =>
+                        Boolean(item)
+                    ) ?? [];
+
                 return (
-                  <article
+                  <div
                     key={section.title}
-                    className={`architecture-item ${
-                      reversed
-                        ? "architecture-item-reversed"
-                        : ""
-                    }`}
+                    className="architecture-section-wrapper"
                   >
 
-                    <div className="architecture-text">
+                    {/* =========================================
+                        MAIN ARCHITECTURE SECTION
+                        ========================================= */}
 
-                      <h3>
-                        {section.title}
-                      </h3>
+                    <article
+                      className={`architecture-item ${
+                        reversed
+                          ? "architecture-item-reversed"
+                          : ""
+                      }`}
+                    >
 
-                      <p>
-                        {section.description}
-                      </p>
+                      <div className="architecture-text">
 
-                    </div>
+                        <h3>
+                          {section.title}
+                        </h3>
 
-
-                    {section.image && (
-                      <div className="architecture-image">
-
-                        <Image
-                          src={section.image}
-                          alt={
-                            section.imageAlt ??
-                            section.title
-                          }
-                          fill
-                          sizes="(max-width: 900px) 100vw, 50vw"
-                        />
+                        {renderRichText(
+                          section.description
+                        )}
 
                       </div>
+
+
+                      {section.image && (
+                        <div className="architecture-image">
+
+                          <Image
+                            src={section.image}
+                            alt={
+                              section.imageAlt ??
+                              section.title
+                            }
+                            fill
+                            sizes="(max-width: 900px) 100vw, 50vw"
+                          />
+
+                        </div>
+                      )}
+
+                    </article>
+
+
+                    {/* =========================================
+                        OPTIONAL 3-GRID
+
+                        Only appears when the current section
+                        contains:
+
+                        addGridUnder: [
+                          "...",
+                          "...",
+                          "..."
+                        ]
+
+                        The title and description come from
+                        the referenced architecture sections.
+                        ========================================= */}
+
+                    {gridChildren.length > 0 && (
+
+                      <div className="architecture-grid">
+
+                        {gridChildren.map((child) => (
+
+                          <div
+                            key={`${section.title}-${child.title}`}
+                            className="architecture-grid-item"
+                          >
+
+                            <h4>
+                              {child.title}
+                            </h4>
+
+                            {renderRichText(
+                              child.description
+                            )}
+
+                          </div>
+
+                        ))}
+
+                      </div>
+
                     )}
 
-                  </article>
+                  </div>
                 );
               }
             )}
@@ -422,9 +590,11 @@ export default function ProjectCaseStudy({
             RESULTS
           </p>
 
-          <h2 className="results-title">
-            {project.results}
-          </h2>
+          {renderRichText(
+            project.results,
+            "results-title",
+            "h2"
+          )}
 
         </div>
 
@@ -493,9 +663,10 @@ export default function ProjectCaseStudy({
               WHAT I LEARNED
             </p>
 
-            <p className="learning-text">
-              {project.whatILearned}
-            </p>
+            {renderRichText(
+              project.whatILearned,
+              "learning-text"
+            )}
 
           </div>
 
@@ -561,6 +732,7 @@ export default function ProjectCaseStudy({
         </section>
 
       )}
+
 
       {/* =====================================================
           VIDEO
@@ -646,7 +818,7 @@ export default function ProjectCaseStudy({
                 href={project.links.liveDemo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="explore-link"
+                className="explore-link explore-link-primary"
               >
 
                 <span>
@@ -680,16 +852,16 @@ export default function ProjectCaseStudy({
             REFLECTION
           </p>
 
-          <p className="reflection-text">
-            {project.reflection}
-          </p>
+          {renderRichText(
+            project.reflection,
+            "reflection-text"
+          )}
 
         </div>
 
       </section>
 
       <Footer />
-
 
     </main>
   );
